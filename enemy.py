@@ -12,10 +12,10 @@ class Enemy:
     def __init__(self, name):
         self.name = name
         self.health = 150
-        self.attack_power = random.randint(5, 18)
+        self.attack_power = random.randint(5, 15)
 
     def attack(self):
-        return random.randint(1, self.attack_power)
+        return random.randint(10, self.attack_power)
 
     def take_damage(self, damage):
         self.health -= damage
