@@ -1,3 +1,4 @@
+import random
 from enemy import Enemy
 
 class Brute(Enemy):
@@ -7,6 +8,10 @@ class Brute(Enemy):
         super().__init__(name)
         self.attack_power = 30
         self.health=250
+
+    def strike(self):
+        # TODO Implement the hero's attack logic. It could be stronger or more consistent than a goblin's.
+        return random.randint(3, self.attack_power)
 
 
     def attack(self):

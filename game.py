@@ -1,7 +1,9 @@
 import random
 from goblin import Goblin
 from hero import Hero
+from skeleton import Skeleton
 from boss import Brute
+
 
 def main():
     print("Welcome to the Battle Arena!")
@@ -11,7 +13,11 @@ def main():
     hero = Hero("Terry")
 
     # Create goblins ༼ ºل͟º ༽ ༼ ºل͟º ༽ ༼ ºل͟º ༽
-    goblins = [Goblin(f"Goblin {i+1}", "green") for i in range(3)]
+    goblins = [Goblin(f"Goblin {i+1}" , "Green") for i in range(random.randint(2,5))]
+
+    # Create skeletons
+    skeletons = [Skeleton(f"Skeleton {i+1}" , "White") for i in range(random.randint(2,5))]
+
 
     # Keep track of how many goblins were defeated
     defeated_goblins = 0
@@ -31,8 +37,23 @@ def main():
         target_goblin.take_damage(damage)
         total_damage_ofhero = total_damage_ofhero + damage
 
+        # Hero's turn to attack
+        target_skeleton = random.choice([skeletons for skeletons in skeletons if skeletons.is_alive()])
+        damage = hero.strike()
+        print(f"Hero attacks {target_goblin.name} for {damage} damage!")
+        target_goblin.take_damage(damage)
+        total_damage_ofhero = total_damage_ofhero + damage
+
+
+
+
         # Check if the target goblin was defeated
         if not target_goblin.is_alive():
+            defeated_goblins += 1
+            print(f"{target_goblin.name} has been defeated!")
+
+        # Check if the target skeleton was defeated
+        if not target_skeleton.is_alive():
             defeated_goblins += 1
             print(f"{target_goblin.name} has been defeated!")
 
@@ -62,15 +83,15 @@ def main():
             damage = hero.strike()
             brute.take_damage(damage)
             damage= brute.strike()
-            hero.take_damage(damage)
+            hero.receive_damage(damage)
         
-    if hero.isalive():
+    if hero.is_alive():
         print("You defeated the Boss!")
 
 
 
     # Final tally of goblins defeated
-    print(f"\nTotal goblins defeated: {defeated_goblins} / {len(goblins)}")
+    print(f"Total goblins defeated: {defeated_goblins} / {len(goblins)}")
 
 if __name__ == "__main__":
     main()
