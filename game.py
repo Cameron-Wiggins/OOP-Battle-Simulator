@@ -27,7 +27,7 @@ def main():
     total_rounds = 0
 
     # Battle Loop 
-    while hero.is_alive() and any(goblin.is_alive() for goblin in goblins):
+    while hero.is_alive() and any(goblin.is_alive() for goblin in goblins) or any(skeltons.is_alive() for skeleton in skeltons ):
         print("\nNew Round!")
         total_rounds = total_rounds + 1
         
@@ -39,10 +39,10 @@ def main():
         total_damage_ofhero = total_damage_ofhero + damage
 
         # Hero's turn to attack skelton
-        target_skeltons = random.choice([skeltons for skeltons in skeltons if skeltons.is_alive()])
+        target_skelton = random.choice([skelton for skelton in skeltons if skeltons.is_alive()])
         damage = hero.strike()
-        print(f"Hero attacks {target_skeltons.name} for {damage} damage!")
-        target_skeltons.take_damage(damage)
+        print(f"Hero attacks {target_skelton.name} for {damage} damage!")
+        target_skelton.take_damage(damage)
         total_damage_ofhero = total_damage_ofhero + damage
 
 
@@ -52,27 +52,25 @@ def main():
             print(f"{target_goblin.name} has been defeated!")
 
         # Check if the target skeleton was defeated
-        if not target_skeltons.is_alive():
+        if not target_skelton.is_alive():
             defeated_skeltons = defeated_skeltons + 1
-            print(f"{target_skeltons.name} has been defeated!")
+            print(f"{target_skelton.name} has been defeated!")
 
-
-        # skeleton' turn to attack
-        for skeltons in skeltons:
-            if goblin.is_alive():
-                damage = goblin.attack()
-                print(f"{goblin.name} attacks hero for {damage} damage!")
-                hero.receive_damage(damage)
-                total_damage_ofgoblin = total_damage_ofgoblin + damage
         
-        
-        # skeleton' turn to attack
+        # goblin' turn to attack
         for goblin in goblins:
             if goblin.is_alive():
                 damage = goblin.attack()
                 print(f"{goblin.name} attacks hero for {damage} damage!")
                 hero.receive_damage(damage)
                 total_damage_ofgoblin = total_damage_ofgoblin + damage
+
+        # skeleton' turn to attack
+        for skeltons in skeltons:
+            if skeltons.is_alive():
+                damage = skeltons.attack()
+                print(f"{skeltons.name} attacks hero for {damage} damage!")
+                hero.receive_damage(damage)
 
 
     # Determine outcome
