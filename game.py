@@ -16,7 +16,7 @@ def main():
     goblins = [Goblin(f"Goblin {i+1}" , "Green") for i in range(random.randint(2,5))]
 
     # Create skeletons
-    skeltons = [Skeleton(f"Skelton {i+1}" , "White") for i in range(random.randint(1,3))]
+    skeletons = [Skeleton(f"Skelton {i+1}" , "White") for i in range(random.randint(1,3))]
 
 
     # Keep track of how many goblins were defeated
@@ -39,10 +39,10 @@ def main():
         total_damage_ofhero = total_damage_ofhero + damage
 
         # Hero's turn to attack skelton
-        target_skelton = random.choice([skelton for skelton in skeltons if skeltons.is_alive()])
+        target_skeleton = random.choice([skeleton for skeleton in skeletons if skeleton.is_alive()])
         damage = hero.strike()
-        print(f"Hero attacks {target_skelton.name} for {damage} damage!")
-        target_skelton.take_damage(damage)
+        print(f"Hero attacks {target_skeleton.name} for {damage} damage!")
+        target_skeleton.take_damage(damage)
         total_damage_ofhero = total_damage_ofhero + damage
 
 
@@ -52,9 +52,9 @@ def main():
             print(f"{target_goblin.name} has been defeated!")
 
         # Check if the target skeleton was defeated
-        if not target_skelton.is_alive():
-            defeated_skeltons = defeated_skeltons + 1
-            print(f"{target_skelton.name} has been defeated!")
+        if not target_skeleton.is_alive():
+            defeated_skelteons = defeated_skeletons + 1
+            print(f"{target_skeleton.name} has been defeated!")
 
         
         # goblin' turn to attack
@@ -66,9 +66,9 @@ def main():
                 total_damage_ofgoblin = total_damage_ofgoblin + damage
 
         # skeleton' turn to attack
-        for skeltons in skeltons:
-            if skeltons.is_alive():
-                damage = skeltons.attack()
+        for skelton in skeltons:
+            if skeleton.is_alive():
+                damage = skeletons.attack()
                 print(f"{skeltons.name} attacks hero for {damage} damage!")
                 hero.receive_damage(damage)
 
