@@ -13,7 +13,7 @@ def main():
     hero = Hero("Terry")
 
     # Create goblins ༼ ºل͟º ༽ ༼ ºل͟º ༽ ༼ ºل͟º ༽
-    goblins = [Goblin(f"Goblin {i+1}" , "Green") for i in range(random.randint(2,5))]
+    goblins = [Goblin(f"Goblin {i+1}" , "Green") for i in range(random.randint(1,3))]
 
     # Create skeletons
     skeletons = [Skeleton(f"Skelton {i+1}" , "White") for i in range(random.randint(1,3))]
@@ -21,15 +21,15 @@ def main():
 
     # Keep track of how many goblins were defeated
     defeated_goblins = 0
-    defeated_skeltons = 0
     total_damage_ofgoblin = 0
     total_damage_ofhero = 0
     total_rounds = 0
 
     # Battle Loop 
-    while hero.is_alive() and any(goblin.is_alive() for goblin in goblins) or any(skeltons.is_alive() for skeleton in skeltons ):
+    while hero.is_alive() and (any(goblin.is_alive() for goblin in goblins) or any(skeleton.is_alive() for skeleton in skeletons)):
         print("\nNew Round!")
         total_rounds = total_rounds + 1
+        print(f"{defeated_goblins}")
         
         # Hero's turn to attack goblin
         target_goblin = random.choice([goblin for goblin in goblins if goblin.is_alive()])
@@ -38,22 +38,24 @@ def main():
         target_goblin.take_damage(damage)
         total_damage_ofhero = total_damage_ofhero + damage
 
-        # Hero's turn to attack skelton
+        # Hero's turn to attack skeleton
         target_skeleton = random.choice([skeleton for skeleton in skeletons if skeleton.is_alive()])
-        damage = hero.strike()
-        print(f"Hero attacks {target_skeleton.name} for {damage} damage!")
-        target_skeleton.take_damage(damage)
-        total_damage_ofhero = total_damage_ofhero + damage
+        if not target_skeleton:
+            damage = hero.strike()
+            print(f"Hero attacks {target_skeleton.name} for {damage} damage!")
+            target_skeleton.take_damage(damage)
+            total_damage_ofhero = total_damage_ofhero + damage
 
 
         # Check if the target goblin was defeated
         if not target_goblin.is_alive():
-            defeated_goblins = defeated_goblins + 1
             print(f"{target_goblin.name} has been defeated!")
+            defeated_goblins= defeated_goblins + 1
+            print(f"Total goblins defeated is now: {defeated_goblins}")
+
 
         # Check if the target skeleton was defeated
         if not target_skeleton.is_alive():
-            defeated_skelteons = defeated_skeletons + 1
             print(f"{target_skeleton.name} has been defeated!")
 
         
@@ -66,10 +68,10 @@ def main():
                 total_damage_ofgoblin = total_damage_ofgoblin + damage
 
         # skeleton' turn to attack
-        for skelton in skeltons:
+        for skeleton in skeletons:
             if skeleton.is_alive():
-                damage = skeletons.attack()
-                print(f"{skeltons.name} attacks hero for {damage} damage!")
+                damage = skeleton.attack()
+                print(f"{skeleton.name} attacks hero for {damage} damage!")
                 hero.receive_damage(damage)
 
 
@@ -79,7 +81,7 @@ def main():
         print(f"total damage was: {total_damage_ofgoblin + total_damage_ofhero}")
         print(f"total rounds was: {total_rounds}")
         # Final tally of goblins defeated
-        print(f"Total goblins defeated: {defeated_goblins}")        
+        print(f"Total goblins defeated: {defeated_goblins}")          
 
     else:
         print(f"\nThe hero has been defeated. Game Over. (｡•́︿•̀｡)")

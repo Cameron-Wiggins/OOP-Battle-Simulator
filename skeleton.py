@@ -12,7 +12,7 @@ class Skeleton(Enemy):
     """
     def __init__(self, color, name):
         super().__init__
-        self.health= 50
+        self.health= 25
         self.color=color
         self.name=name
         self.attack_power= random.randint(10,20)

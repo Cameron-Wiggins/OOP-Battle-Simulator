@@ -12,7 +12,7 @@ class Goblin(Enemy):
     """
     def __init__(self, color, name):
         super().__init__
-        self.health= 75
+        self.health= 50
         self.color=color
         self.name=name
         self.attack_power= random.randint(5,10)

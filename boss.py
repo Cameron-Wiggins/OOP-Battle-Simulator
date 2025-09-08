@@ -6,7 +6,7 @@ class Brute(Enemy):
 
     def __init__(self, name):
         super().__init__(name)
-        self.attack_power = 30
+        self.attack_power = 10
         self.health=250
 
     def strike(self):
@@ -16,10 +16,10 @@ class Brute(Enemy):
 
     def attack(self):
         if self.health < 200:
-            self.attack_power = 40
+            self.attack_power = 20
         elif self.health < 150:
-            self.attack_power = 50
+            self.attack_power = 30
         elif self.health < 100:
-            self.attack_power = 70
+            self.attack_power = 40
         elif self.health < 50:
-            self.attack_power = 90
+            self.attack_power = 50
