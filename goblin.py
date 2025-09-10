@@ -16,6 +16,8 @@ class Goblin(Enemy):
         self.color=color
         self.name=name
         self.attack_power= random.randint(5,10)
+    def __str__(self):
+        return f"{self.name} ({self.color})"
 
     def attack(self):
         return self.attack_power

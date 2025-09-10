@@ -50,7 +50,7 @@ def main():
         # Check if the target goblin was defeated
         if not target_goblin.is_alive():
             print(f"{target_goblin.name} has been defeated!")
-            defeated_goblins= defeated_goblins + 1
+            defeated_goblins = defeated_goblins + 1
             print(f"Total goblins defeated is now: {defeated_goblins}")
 
 
